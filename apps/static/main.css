@@ -1,0 +1,58 @@
+/* main.css */
+
+
+.link-style {
+    display: block;
+    padding: 15px;
+    text-align: center;
+    background-color: #e0e0e0;
+    color: black;
+    text-decoration: none;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+}
+
+
+#link-special {
+    font-weight: bold;
+}
+
+
+.link-style:visited {
+    color: purple;
+}
+
+.link-style:hover {
+    background-color: #c0c0c0;
+    color: blue;
+}
+
+.link-style:active {
+    background-color: #a0a0a0;
+    color: red;
+}
+
+
+h1.format-title {
+    color: darkblue;
+    text-align: center;
+    border-bottom: 2px solid gray;
+    padding-bottom: 10px;
+}
+
+
+.custom-table {
+    border-collapse: collapse;
+    width: 60%;
+    margin-bottom: 30px;
+}
+
+.custom-table th, .custom-table td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+}
+
+.custom-table th {
+    background-color: #f2f2f2;
+}
