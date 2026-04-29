@@ -1,0 +1,5 @@
+{% extends "layouts/base.html" %}
+{% block content %}
+<h2>Task 4: Prices Stats</h2>
+<ul>{% for p in publishers %}<li>{{p.name}} - Avg: ${{p.avg_price}}, Min: ${{p.min_price}}, Max: ${{p.max_price}}</li>{% endfor %}</ul>
+{% endblock %}

@@ -1,0 +1,5 @@
+{% extends "layouts/base.html" %}
+{% block content %}
+<h2>Task 6: Filtered Books Count</h2>
+<ul>{% for p in publishers %}<li>{{p.name}} - Filtered Books Count: {{p.filtered_books}}</li>{% endfor %}</ul>
+{% endblock %}

@@ -1,0 +1,5 @@
+{% extends "layouts/base.html" %}
+{% block content %}
+<h2>Task 5: Highly Rated Books Count</h2>
+<ul>{% for p in publishers %}<li>{{p.name}} - Highly Rated Books: {{p.highly_rated}}</li>{% endfor %}</ul>
+{% endblock %}
