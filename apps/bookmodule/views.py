@@ -13,6 +13,7 @@ from .forms import Student2Form
 from .models import Student2
 from .models import UserProfile
 from .forms import UserProfileForm
+from django.contrib.auth.decorators import login_required
 
 def index(request):
     return render(request, "bookmodule/index.html")
@@ -241,11 +242,11 @@ def delete_student(request, id):
     student = get_object_or_404(Student, id=id)
     student.delete()
     return redirect('lab11_task1.list')
-
+@login_required(login_url='/users/login')
 def list_students2(request):
     students = Student2.objects.all()
     return render(request, 'bookmodule/lab11_task2_list.html', {'students': students})
-
+@login_required(login_url='/users/login')
 def add_student2(request):
     if request.method == 'POST':
         form = Student2Form(request.POST)
@@ -278,6 +279,7 @@ def list_profiles(request):
 
 def add_profile(request):
     if request.method == 'POST':
+
         form = UserProfileForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()

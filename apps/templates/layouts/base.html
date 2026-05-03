@@ -1,20 +1,41 @@
 <!DOCTYPE html>
 <html>
-{% load static %}
 <head>
-    <title>{% block title %} {% endblock title %}</title>
-    <meta name="keywords" content="Books, recent, Learning, library">
-    <meta name="description" content="Books website">
-    <meta name="author" content="author name">
-    <link rel="icon" href="{% static 'qu-icon.png' %}">
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="{% static 'styles.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    {% block stylesheets %} {% endblock stylesheets %}
+    <title>My Django Library</title>
 </head>
 <body>
-    {% include "includes/header.html" %}
-    {% block content %} {% endblock content %}
-    {% include "includes/footer.html" %}
+    <header>
+        <a href="/">Home</a> | 
+        <a href="/books/">List Books</a> | 
+        <a href="/books/about/">About</a>
+        
+        
+        <span style="float: right;">
+            {% if request.user.is_authenticated %}
+                Welcome, {{ request.user.username }}! | 
+                <a href="/users/logout" style="color: red;">Logout</a>
+            {% else %}
+                <a href="/users/login">Login</a> | 
+                <a href="/users/register">Register</a>
+            {% endif %}
+        </span>
+    </header>
+    <hr>
+
+    
+    {% if messages %}
+        <ul style="color: green; background-color: #d4edda; padding: 10px; border: 1px solid #c3e6cb;">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    
+    {% block content %}
+    {% endblock %}
+
+    <hr>
+    <footer>© 2026 My Django Library</footer>
 </body>
 </html>
