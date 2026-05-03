@@ -1,0 +1,11 @@
+{% extends "layouts/base.html" %}
+{% block content %}
+<h2>Add New Student (Many-to-Many)</h2>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <p><em>Hold down "Control", or "Command" on a Mac, to select more than one address.</em></p>
+    <button type="submit">Save Student</button>
+    <a href="{% url 'lab11_task2.list' %}">Cancel</a>
+</form>
+{% endblock %}

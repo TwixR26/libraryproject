@@ -1,0 +1,29 @@
+{% extends "layouts/base.html" %}
+{% block content %}
+<h2>List of Students (Lab 11 - Task 1)</h2>
+<a href="{% url 'lab11_task1.add' %}" style="display:inline-block; margin-bottom:15px; padding:10px; background-color:blue; color:white; text-decoration:none;">+ Add Student</a>
+
+<table border="1" cellpadding="10">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Address (City)</th>
+        <th>Actions</th>
+    </tr>
+    {% for student in students %}
+    <tr>
+        <td>{{ student.id }}</td>
+        <td>{{ student.name }}</td>
+        <td>{{ student.age }}</td>
+        <td>{{ student.address.city }}</td>
+        <td>
+            <a href="{% url 'lab11_task1.edit' student.id %}" style="color:blue;">Edit</a> | 
+            <a href="{% url 'lab11_task1.delete' student.id %}" style="color:red;" onclick="return confirm('Delete this student?');">Delete</a>
+        </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="5">No students found.</td></tr>
+    {% endfor %}
+</table>
+{% endblock %}

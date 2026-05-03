@@ -1,0 +1,10 @@
+{% extends "layouts/base.html" %}
+{% block content %}
+<h2>Add New Profile</h2>
+<!-- enctype="multipart/form-data" ضروري جداً لرفع أي ملف أو صورة -->
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save Profile</button>
+</form>
+{% endblock %}

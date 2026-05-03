@@ -7,6 +7,12 @@ from .models import Book, Publisher, Author
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from .forms import BookForm
+from .models import Book, Address, Student, Publisher, Author
+from .forms import BookForm, StudentForm
+from .forms import Student2Form
+from .models import Student2
+from .models import UserProfile
+from .forms import UserProfileForm
 
 def index(request):
     return render(request, "bookmodule/index.html")
@@ -205,3 +211,77 @@ def deletebook_part2(request, id):
     book = get_object_or_404(Book, id=id)
     book.delete()
     return redirect('lab10_part2.list')
+
+def list_students(request):
+    students = Student.objects.all()
+    return render(request, 'bookmodule/lab11_task1_list.html', {'students': students})
+
+def add_student(request):
+    if request.method == 'POST':
+        form = StudentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('lab11_task1.list')
+    else:
+        form = StudentForm()
+    return render(request, 'bookmodule/lab11_task1_add.html', {'form': form})
+
+def edit_student(request, id):
+    student = get_object_or_404(Student, id=id)
+    if request.method == 'POST':
+        form = StudentForm(request.POST, instance=student)
+        if form.is_valid():
+            form.save()
+            return redirect('lab11_task1.list')
+    else:
+        form = StudentForm(instance=student)
+    return render(request, 'bookmodule/lab11_task1_edit.html', {'form': form, 'student': student})
+
+def delete_student(request, id):
+    student = get_object_or_404(Student, id=id)
+    student.delete()
+    return redirect('lab11_task1.list')
+
+def list_students2(request):
+    students = Student2.objects.all()
+    return render(request, 'bookmodule/lab11_task2_list.html', {'students': students})
+
+def add_student2(request):
+    if request.method == 'POST':
+        form = Student2Form(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('lab11_task2.list')
+    else:
+        form = Student2Form()
+    return render(request, 'bookmodule/lab11_task2_add.html', {'form': form})
+
+def edit_student2(request, id):
+    student = get_object_or_404(Student2, id=id)
+    if request.method == 'POST':
+        form = Student2Form(request.POST, instance=student)
+        if form.is_valid():
+            form.save()
+            return redirect('lab11_task2.list')
+    else:
+        form = Student2Form(instance=student)
+    return render(request, 'bookmodule/lab11_task2_edit.html', {'form': form, 'student': student})
+
+def delete_student2(request, id):
+    student = get_object_or_404(Student2, id=id)
+    student.delete()
+    return redirect('lab11_task2.list')
+
+def list_profiles(request):
+    profiles = UserProfile.objects.all()
+    return render(request, 'bookmodule/lab11_task3_list.html', {'profiles': profiles})
+
+def add_profile(request):
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('lab11_task3.list')
+    else:
+        form = UserProfileForm()
+    return render(request, 'bookmodule/lab11_task3_add.html', {'form': form})

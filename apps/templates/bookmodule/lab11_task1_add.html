@@ -1,0 +1,10 @@
+{% extends "layouts/base.html" %}
+{% block content %}
+<h2>Add New Student</h2>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save Student</button>
+    <a href="{% url 'lab11_task1.list' %}">Cancel</a>
+</form>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "layouts/base.html" %}
+{% block content %}
+<h2>User Profiles (Lab 11 - Task 3)</h2>
+<a href="{% url 'lab11_task3.add' %}">+ Add Profile</a>
+
+<table border="1" cellpadding="10" style="margin-top:10px;">
+    <tr><th>ID</th><th>Name</th><th>Profile Picture</th></tr>
+    {% for profile in profiles %}
+    <tr>
+        <td>{{ profile.id }}</td>
+        <td>{{ profile.name }}</td>
+        <td>
+            {% if profile.profile_picture %}
+                <img src="{{ profile.profile_picture.url }}" width="100" height="100" style="object-fit:cover;">
+            {% else %}
+                No Image
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
