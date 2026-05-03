@@ -4,6 +4,9 @@ from django.db.models import Q, Count, Sum, Avg, Max, Min
 from .models import Book, Address, Student
 from django.db.models import Q, Count, Sum, Avg, Max, Min
 from .models import Book, Publisher, Author
+from django.shortcuts import render, redirect, get_object_or_404
+from django.utils import timezone
+from .forms import BookForm
 
 def index(request):
     return render(request, "bookmodule/index.html")
@@ -131,3 +134,74 @@ def task6_lab9(request):
         filtered_books=Count('book', filter=Q(book__price__gt=50, book__quantity__gte=1, book__quantity__lt=5))
     )
     return render(request, 'bookmodule/lab9_task6.html', {'publishers': publishers})
+
+def listbooks_part1(request):
+    books = Book.objects.all()
+    return render(request, 'bookmodule/lab10_part1_list.html', {'books': books})
+
+
+def addbook_part1(request):
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        price = request.POST.get('price')
+        quantity = request.POST.get('quantity')
+        
+       
+        Book.objects.create(
+            title=title, 
+            price=float(price), 
+            quantity=int(quantity), 
+            pubdate=timezone.now()
+        )
+        return redirect('lab10_part1.list') 
+    return render(request, 'bookmodule/lab10_part1_add.html')
+
+
+def editbook_part1(request, id):
+    book = get_object_or_404(Book, id=id)
+    if request.method == 'POST':
+        book.title = request.POST.get('title')
+        book.price = float(request.POST.get('price'))
+        book.quantity = int(request.POST.get('quantity'))
+        book.save()
+        return redirect('lab10_part1.list')
+        
+    return render(request, 'bookmodule/lab10_part1_edit.html', {'book': book})
+
+
+def deletebook_part1(request, id):
+    book = get_object_or_404(Book, id=id)
+    book.delete()
+    return redirect('lab10_part1.list')
+
+def listbooks_part2(request):
+    books = Book.objects.all()
+    return render(request, 'bookmodule/lab10_part2_list.html', {'books': books})
+
+def addbook_part2(request):
+    if request.method == 'POST':
+        form = BookForm(request.POST)
+        if form.is_valid():
+            book = form.save(commit=False)
+            book.pubdate = timezone.now() 
+            book.save()
+            return redirect('lab10_part2.list')
+    else:
+        form = BookForm()
+    return render(request, 'bookmodule/lab10_part2_add.html', {'form': form})
+
+def editbook_part2(request, id):
+    book = get_object_or_404(Book, id=id)
+    if request.method == 'POST':
+        form = BookForm(request.POST, instance=book)
+        if form.is_valid():
+            form.save()
+            return redirect('lab10_part2.list')
+    else:
+        form = BookForm(instance=book)
+    return render(request, 'bookmodule/lab10_part2_edit.html', {'form': form, 'book': book})
+
+def deletebook_part2(request, id):
+    book = get_object_or_404(Book, id=id)
+    book.delete()
+    return redirect('lab10_part2.list')

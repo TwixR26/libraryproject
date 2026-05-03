@@ -1,0 +1,27 @@
+{% extends "layouts/base.html" %}
+{% block content %}
+<h2>List of Books (Part 2 - Django Forms)</h2>
+<a href="{% url 'lab10_part2.add' %}" style="display:inline-block; margin-bottom:15px; padding:10px; background-color:blue; color:white; text-decoration:none;">+ Add Book with Form</a>
+
+<table border="1" cellpadding="10">
+    <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Actions</th>
+    </tr>
+    {% for book in books %}
+    <tr>
+        <td>{{ book.id }}</td>
+        <td>{{ book.title }}</td>
+        <td>${{ book.price }}</td>
+        <td>{{ book.quantity }}</td>
+        <td>
+            <a href="{% url 'lab10_part2.edit' book.id %}" style="color:blue;">Edit</a> | 
+            <a href="{% url 'lab10_part2.delete' book.id %}" style="color:red;" onclick="return confirm('Delete this book?');">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
